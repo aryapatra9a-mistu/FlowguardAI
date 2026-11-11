@@ -105,15 +105,7 @@ function formatMoney(amount: number) {
   }).format(Number(amount) || 0);
 }
 
-function formatDate(value?: string) {
-  if (!value) return "Date unavailable";
 
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return value;
-
-  return date.toLocaleString();
-}
 
 /* =========================================================
    DASHBOARD

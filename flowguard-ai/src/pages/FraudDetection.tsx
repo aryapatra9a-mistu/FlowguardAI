@@ -29,7 +29,7 @@ type FraudTransaction = {
   status: string;
 };
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://flowguard-api-9j55.onrender.com";
 
 const formatAmount = (amount: number) =>
   new Intl.NumberFormat("en-US", {

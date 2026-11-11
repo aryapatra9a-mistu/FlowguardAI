@@ -39,7 +39,7 @@ interface Transaction {
   risk: RiskLevel;
 }
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://flowguard-api-9j55.onrender.com";
 
 type BackendTransaction = {
   id: number;

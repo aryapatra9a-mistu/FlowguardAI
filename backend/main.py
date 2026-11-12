@@ -28,7 +28,6 @@ from payment import router as payment_router
 
 from fraud_ai import router as fraud_router
 
-# NEW: User Settings Router
 from settings import router as settings_router
 
 
@@ -51,36 +50,33 @@ app = FastAPI(
 
 
 # ==================================================
-# REGISTER ROUTERS
-# ==================================================
-
-# Authentication endpoints
-app.include_router(auth_router)
-
-# Payment endpoints
-app.include_router(payment_router)
-
-# Fraud detection endpoints
-app.include_router(fraud_router)
-
-# NEW: User Settings endpoints
-app.include_router(settings_router)
-
-
-# ==================================================
-# CORS
+# CORS CONFIGURATION
 # ==================================================
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "http://127.0.0.1:5173"
+        "http://127.0.0.1:5173",
+        "https://flowguardai-c1le.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ==================================================
+# REGISTER ROUTERS
+# ==================================================
+
+app.include_router(auth_router)
+
+app.include_router(payment_router)
+
+app.include_router(fraud_router)
+
+app.include_router(settings_router)
 
 
 # ==================================================
@@ -330,7 +326,6 @@ def dashboard_statistics(
     current_user: User = Depends(get_current_user)
 ):
 
-    # Only the logged-in user's transactions
     user_transactions = db.query(Transaction).filter(
         Transaction.user_id == current_user.id
     )

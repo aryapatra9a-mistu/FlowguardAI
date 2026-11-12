@@ -1,5 +1,6 @@
 
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
@@ -35,6 +36,8 @@ type PaymentState =
   | "failed";
 
 export default function Payment() {
+  const navigate = useNavigate();
+
   const [customerName, setCustomerName] = useState("");
   const [state, setState] = useState<PaymentState>("loading");
   const [message, setMessage] = useState(
@@ -155,6 +158,7 @@ export default function Payment() {
                   if (!accessToken) {
                     throw new Error("Your session has expired. Please log in again.");
                   }
+
                   const response = await fetch(
                     `${API_BASE_URL}/api/payments/capture-order`,
                     {
@@ -290,9 +294,7 @@ export default function Payment() {
         <div className="mb-7">
           <button
             type="button"
-            onClick={() => {
-              window.location.href = "/dashboard";
-            }}
+            onClick={() => navigate("/dashboard")}
             className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-purple-400 hover:bg-purple-500/20"
           >
             <span aria-hidden="true">←</span>
